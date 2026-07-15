@@ -100,7 +100,9 @@ sudo tail -f /var/log/suricata/fast.log
 Ожидаемый результат: Вы увидите сообщения о сканировании портов в логах Suricata.
 
 4. SIEM на базе ELK Stack (Windows + Docker)
+
 Шаг 1: Установка Docker Desktop на Windows
+
 1.1. Скачивание и установка
 Перейдите на официальный сайт Docker: https://www.docker.com/products/docker-desktop/
 Скачайте установщик для Windows.
@@ -112,7 +114,9 @@ sudo tail -f /var/log/suricata/fast.log
 powershell
 docker --version
 Вы должны увидеть версию Docker.
+
 🛠️ Шаг 2: Развертывание ELK Stack
+
 2.1. Клонирование репозитория
 Откройте PowerShell.
 Перейдите в папку, где вы будете хранить проект ELK (например, C:\ELK):
@@ -149,7 +153,9 @@ http://localhost:5601
 Логин: elastic
 Пароль: тот, который вы задали в .env (например, changeme).
 Если вы видите страницу Kibana — всё работает!
+
 🛠️ Шаг 3: Создание пользователя для Winlogbeat
+
 Этот шаг безопаснее, чем использовать суперпользователя elastic.
 Откройте PowerShell (или командную строку).
 Войдите в контейнер Elasticsearch:
@@ -162,7 +168,9 @@ elasticsearch-users useradd winlogbeat_user -p your_password -r beats_admin
 Выйдите из контейнера:
 bash
 exit
+
 🛠️ Шаг 4: Скачивание и установка Winlogbeat
+
 4.1. Скачивание Winlogbeat
 Перейдите на официальную страницу загрузки:
 https://www.elastic.co/downloads/beats/winlogbeat
@@ -177,7 +185,9 @@ cd "C:\Program Files\Winlogbeat"
 powershell
 .\install-service-winlogbeat.ps1
 или PowerShell.exe -ExecutionPolicy UnRestricted -File .\install-service-winlogbeat.ps1
+
 🛠️ Шаг 5: Настройка Winlogbeat
+
 5.1. Редактирование файла конфигурации
 Откройте файл winlogbeat.yml в Блокноте:
 powershell
@@ -233,6 +243,7 @@ netstat -ano | findstr :5601
 Если есть процесс, который слушает этот порт, завершите его или настройте другой порт для Kibana в docker-compose.yml
 
 🖥️ Шаг 6: Создание дашборда в Kibana
+
 6.1. Проверка данных
 Откройте Kibana: http://localhost:5601
 В левом меню выберите Discover.
@@ -249,6 +260,7 @@ netstat -ano | findstr :5601
 Сохраните дашборд с именем Windows Events Overview.
 
 Шаг 7: Симуляция атаки (Брутфорс RDP)
+
 Чтобы увидеть SIEM в действии:
 На вашем Windows-клиенте включите удалённый рабочий стол (RDP).
 С Kali Linux (если есть в сети) выполните брутфорс-атаку с помощью Hydra:
